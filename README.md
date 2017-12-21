@@ -5,3 +5,5 @@ Data from [Breach Level Index](http://breachlevelindex.com/data-breach-database)
 
 To do:
 * Style the page
+* Make the dimensions work better on mobile
+* Thousands separators in tooltip
