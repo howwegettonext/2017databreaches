@@ -1,12 +1,29 @@
+body {
+	background: #ece4ca;
+	font-family: "futura-pt", sans-serif;
+}
+
 h1 {
-	text-align: center
+	text-align: center;
+	font-family: "futura-pt-bold", sans-serif;
+}
+
+#mainwidth {
+	width: 850px;
+	height: auto;
+	padding: 2px 20px;
+	background-color: white;
+	margin: 0 auto;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 #tooltip {
 	position: absolute;
 	width: 300px;
 	height: auto;
-	padding: 10px;
+	padding: 15px;
 	background-color: white;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -23,11 +40,14 @@ h1 {
 
 #tooltip p {
 	margin: 0;
-	font-family: sans-serif;
 	font-size: 16px;
 	line-height: 20px;
 }
 
 #chart {
+	text-align: center;
+}
+
+#outro {
 	text-align: center;
 }
