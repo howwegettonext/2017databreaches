@@ -2,9 +2,9 @@
 // Set chart size
 var margin = {
 		top: 20,
-		right: 30,
+		right: 40,
 		bottom: 20,
-		left: 80
+		left: 60
 	},
 	width = parseInt(d3.select('#chartgoeshere').style('width'), 10) - margin.left - margin.right,
 	height = width / 0.3333;
@@ -27,7 +27,7 @@ var y = d3.scaleTime()
 	.range([0, height]);
 
 var r = d3.scaleSqrt()
-	.range([3, 35]);
+	.range([width / 200, width / 10]);
 
 // Add an SVG element
 var svg = d3.select("#chartgoeshere")
@@ -52,7 +52,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 	x.domain([10000, d3.max(data, function (d) {
 		return d.records;
 	})]).nice();
-	
+
 	// Y goes from the first date to a magic number enddate, set above
 	y.domain([d3.min(data, function (d) {
 			return d.date;
@@ -62,7 +62,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 				//	return d.date;
 				//})
 			]);
-	
+
 	// Circle radius goes from min to max of the dataset
 	r.domain([d3.min(data, function (d) {
 			return d.records;
@@ -85,7 +85,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 		.attr("cy", function (d) {
 			return y(d.date);
 		})
-		.attr("fill", "#e85859")
+		.attr("fill", "#e85859cc")
 
 		// Add mouseover effect
 		.on("mouseover", function (data) {
@@ -120,8 +120,9 @@ d3.csv("breach_level_index.csv", function (error, data) {
 		// Add mouseout effect
 		.on("mouseout", function (data) {
 			d3.select(this)
+				// Regular colour again
 				.transition()
-				.attr("fill", "#e85859") // Regular colour again
+				.attr("fill", "#e85859cc")
 				.attr("r", function (d) {
 					return r(d.records); // Radius normal
 				});
