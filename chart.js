@@ -6,8 +6,9 @@ var margin = {
 		bottom: 20,
 		left: 80
 	},
-	width = 800 - margin.left - margin.right,
-	height = 800 - margin.top - margin.bottom;
+	width = parseInt(d3.select('#chartgoeshere').style('width'), 10) - margin.left - margin.right,
+	height = width / 0.3333;
+
 
 // Create date/time parser
 var parseTime = d3.timeParse("%d/%m/%Y");
@@ -15,8 +16,8 @@ var parseTime = d3.timeParse("%d/%m/%Y");
 // Create trackers for mobile touch and mouse coords
 var touched = false;
 
-// Create an end date for the Y axis
-var endDate = parseTime("31/12/2017");
+// Create an end date for the Y axis - currently mid-September
+var endDate = parseTime("15/09/2017");
 
 // Set ranges
 var x = d3.scaleLog()
@@ -46,30 +47,29 @@ d3.csv("breach_level_index.csv", function (error, data) {
 		d.records = +d.records; // integer size of breach
 	});
 
-	// Scale the range
+	// Scale the ranges
+	// X goes from 10,000 to the max of the dataset, niced
 	x.domain([10000, d3.max(data, function (d) {
 		return d.records;
 	})]).nice();
-
-	y.domain([
-						d3.min(data, function (d) {
+	
+	// Y goes from the first date to a magic number enddate, set above
+	y.domain([d3.min(data, function (d) {
 			return d.date;
 		}) - 20,
-						endDate
-
-						//d3.max(data, function(d) {
-						//	return d.date;
-						//})
-					]);
-
-	r.domain([
-						d3.min(data, function (d) {
+				endDate
+			  	//d3.max(data, function(d) {
+				//	return d.date;
+				//})
+			]);
+	
+	// Circle radius goes from min to max of the dataset
+	r.domain([d3.min(data, function (d) {
 			return d.records;
 		}),
-						d3.max(data, function (d) {
+			  d3.max(data, function (d) {
 			return d.records;
-		})
-					]).nice();
+		})]).nice();
 
 	// Add the dots
 	svg.selectAll("dot")
@@ -176,7 +176,6 @@ d3.csv("breach_level_index.csv", function (error, data) {
 				touched = false;
 			}
 		});
-
 
 	// Add the x axis
 	svg.append("g")
