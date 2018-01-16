@@ -14,15 +14,17 @@
 		<script src="//d3js.org/d3.v4.js"></script>
 		<div id="mainwidth">
 			<h1>100 Biggest Data Breaches of 2017</h1>
-			<p>Some introductory text goes here. What should it say? Who knows? Who cares? Here are the lyrics to All Star. Somebody once told me the world is gonna roll me. I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb in the shape of an "L" on her forehead.</p>
-			<p>Well the years start coming and they don't stop coming. Fed to the rules and I hit the ground running. Didn't make sense not to live for fun. Your brain gets smart but your head gets dumb. So much to do, so much to see so what's wrong with taking the back streets? You'll never know if you don't go. You'll never shine if you don't glow.</p>
-			<p>Hey now, you're an all-star, get your game on, go play. Hey now, you're a rock star, get the show on, get paid. And all that glitters is gold. Only shooting stars break the mold.</p>
+			<p>The ID Question is the latest series from How We Get To Next. It explores the larger implications of today's identity systems, such as India's national biometric identity project Aadhaar, and issues related to identity in the digital age.</p>
+
+			<p>In this episode specifically, we examine individual power to control identities online when the state and corporations like Facebook and Google are the ones who control the way our data is stored, and in many cases, used. What happens when these organisations - whether government or corporate - are hacked, and our data is rendered vulnerable?</p>
+
+			<p>We're not talking about hypotheticals though - this chart will show you the real extent of this problem. Have a play around by hovering over each circle. To read more, make sure you follow How We Get To Next online, and to discuss identities in more detail, join the series Facebook group.</p>
 			<div id="chartgoeshere">
-			<div id="tooltip" , class="hidden">
-				<p><strong><span id = "tip-header">Header</span></strong></p>
-				<p><em><span id="tip-location">Location</span></em></p>
-				<p>Records lost: <span id="tip-records">9999</span></p>
-			</div>
+				<div id="tooltip" , class="hidden">
+					<p><strong><span id = "tip-header">Header</span></strong></p>
+					<p><em><span id="tip-location">Location</span></em></p>
+					<p>Records lost: <span id="tip-records">9999</span></p>
+				</div>
 			</div>
 			<div id="outro">
 				<p>This bubble chart was created in <a href="https://d3js.org/">D3v4.js</a> by <a href="http://duncangeere.com">Duncan Geere</a> and <a href="http://storythings.com">Storythings</a> for <strong><a href="https://youtube.com/watch?v=L_jWHffIx5E">the ID Question</a></strong>. Data from <a href="http://breachlevelindex.com/data-breach-database">Breach Level Index</a>.</p>
@@ -33,7 +35,7 @@
 				// Set chart size
 				var margin = {
 						top: 20,
-						right: 20,
+						right: 30,
 						bottom: 20,
 						left: 80
 					},
@@ -46,12 +48,15 @@
 				// Create trackers for mobile touch and mouse coords
 				var touched = false;
 
+				// Create an end date for the Y axis
+				var endDate = parseTime("31/12/2017")
+
 				// Set ranges
-				var x = d3.scaleTime()
+				var x = d3.scaleLog()
 					.range([0, width]);
 
-				var y = d3.scaleLog()
-					.range([height, 0]);
+				var y = d3.scaleTime()
+					.range([0, height]);
 
 				var r = d3.scaleSqrt()
 					.range([3, 35]);
@@ -75,17 +80,21 @@
 					});
 
 					// Scale the range
-					x.domain([
+					x.domain([10000, d3.max(data, function(d) {
+						return d.records;
+					})]).nice();
+
+					y.domain([
 						d3.min(data, function(d) {
 							return d.date;
 						}) - 20,
-						d3.max(data, function(d) {
-							return d.date;
-						})
-					]).nice();
-					y.domain([10000, d3.max(data, function(d) {
-						return d.records;
-					})]).nice();
+						endDate
+
+						//d3.max(data, function(d) {
+						//	return d.date;
+						//})
+					]);
+
 					r.domain([
 						d3.min(data, function(d) {
 							return d.records;
@@ -104,10 +113,10 @@
 							return r(d.records);
 						})
 						.attr("cx", function(d) {
-							return x(d.date);
+							return x(d.records);
 						})
 						.attr("cy", function(d) {
-							return y(d.records);
+							return y(d.date);
 						})
 						.attr("fill", "#e85859")
 
@@ -123,9 +132,9 @@
 							// Update tooltip position and values
 							var tip = d3.select("#tooltip")
 
-							tip.style("left", (x(data.date) + document.getElementById("chartgoeshere").offsetLeft) + 90 + "px")
-							.style("top", (y(data.records) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px");
-									  
+							tip.style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 90 + "px")
+								.style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px");
+
 
 							tip.select("#tip-header")
 								.text(data.organisation);
@@ -168,8 +177,8 @@
 								// Update tooltip position and values
 								var tip = d3.select("#tooltip")
 
-								tip.style("left", (x(data.date) + ((window.innerWidth - width + margin.left + margin.right) / 2)) + "px")
-									.style("top", y(data.records) + "px");
+								tip.style("left", (x(data.records) + ((window.innerWidth - width + margin.left + margin.right) / 2)) + "px")
+									.style("top", y(data.date) + "px");
 
 								tip.select("#tip-header")
 									.text(data.organisation);
@@ -204,15 +213,19 @@
 
 					// Add the x axis
 					svg.append("g")
+
 						.attr("transform", "translate(0," + height + ")")
-						.call(d3.axisBottom(x));
+						.call(d3.axisBottom(x)
+							.tickFormat(function(d) {
+								return x.tickFormat(4, d3.format(",d"))(d)
+							}));
 
 					// Add the y axis
-					svg.append("g").call(
-						d3.axisLeft(y)
-						.tickFormat(function(d) {
-							return y.tickFormat(4, d3.format(",d"))(d)
-						}));
+					svg.append("g")
+						.call(d3.axisLeft(y));
+
+
+
 				});
 
 			</script>
