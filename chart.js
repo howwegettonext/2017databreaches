@@ -38,7 +38,7 @@ var y = d3.scaleTime()
   .range([0, height]);
 
 var r = d3.scaleSqrt()
-  .range([width / 200, width / 10]);
+  .range([width / 150, width / 10]);
 
 // Add an SVG element
 var svg = d3.select("#chartgoeshere")
