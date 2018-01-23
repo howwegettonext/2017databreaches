@@ -23,8 +23,9 @@ var parseTime = d3.timeParse("%d/%m/%Y");
 // Create trackers for mobile touch and mouse coords
 var touched = false;
 
-// Create an end date for the Y axis - currently mid-September
-var endDate = parseTime("01/10/2017");
+// Create a start and end date for the Y axis
+var startDate = parseTime("30/12/2016");
+var endDate = parseTime("31/12/2017");
 
 // Set ranges
 var x = d3.scaleLog()
@@ -60,15 +61,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
     return d.records;
   })]).nice();
 
-  // Y goes from the first date to a magic number enddate, set above
-  y.domain([d3.min(data, function (d) {
-      return d.date;
-    }) - 20,
-				endDate
-			  	//d3.max(data, function(d) {
-				//	return d.date;
-				//})
-			]);
+  // Y goes from the start date to end date, set above
+  y.domain([startDate,endDate]);
 
   // Circle radius goes from min to max of the dataset
   r.domain([d3.min(data, function (d) {
@@ -79,7 +73,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     })]).nice();
 
   // Draw the background squares
-  var backMonths = [["01/01/2017", "01/02/2017"], 
+  var backMonths = [["30/12/2016", "01/02/2017"], 
                     ["01/03/2017", "01/04/2017"], 
                     ["01/05/2017", "01/06/2017"], 
                     ["01/07/2017", "01/08/2017"], 
@@ -234,8 +228,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
   // Add the x axis
   var xaxis = svg.append("g")
     .style("font", "14px futura-pt")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x)
+    //.attr("transform", "translate(0," + height + ")")
+    .call(d3.axisTop(x)
       .tickFormat(function (d) {
         return x.tickFormat(4, d3.format(",d"))(d);
       }));
@@ -273,10 +267,19 @@ d3.csv("breach_level_index.csv", function (error, data) {
       .attr("cy", function (d) {
         return y(d.date);
       });
+    
+    // Move the squares
+    squares.attr("y", function(d) {
+      return y(d[0]);
+    })
+    .attr("width", width)
+    //.attr("height", month)
+    .attr("height", function(d) {
+      return y(d[1]) - y(d[0]);
+    })
 
     // Move the axes
-    xaxis.attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x)
+    xaxis.call(d3.axisTop(x)
         .tickFormat(function (d) {
           return x.tickFormat(4, d3.format(",d"))(d);
         }));
