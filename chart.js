@@ -11,8 +11,8 @@ var margin = {
 
 // Define a "move to front" function for the mouseover
 // Thanks to https://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
-d3.selection.prototype.moveToFront = function() {
-  return this.each(function(){
+d3.selection.prototype.moveToFront = function () {
+  return this.each(function () {
     this.parentNode.appendChild(this);
   });
 };
@@ -102,7 +102,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
     d3.select(this)
       .moveToFront()
       .transition()
-      .attr("fill", "#6f9b94") // Change colour
+      .attr("fill", function (d) {
+        if (d.industry == "Government") return "#f8957e";
+        else return "#6f9b94";
+      }) // Change colour
       .attr("r", function (d) {
         return r(d.records) + 5; // Larger radius
       });
@@ -151,7 +154,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
       d3.select(this)
         .moveToFront()
         .transition()
-        .attr("fill", "#6f9b94") // Change colour
+        .attr("fill", function (d) {
+          if (d.industry == "Government") return "#f8957e";
+          else return "#6f9b94";
+        }) // Change colour
         .attr("r", function (d) {
           return r(d.records) + 5; // Larger radius
         });
@@ -250,6 +256,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
   }
 
   // Listen for resize and update
+  // via https://bl.ocks.org/curran/3a68b0c81991e2e94b19
   window.addEventListener("resize", update);
 
 });
