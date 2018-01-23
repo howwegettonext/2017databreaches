@@ -101,7 +101,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .attr("height", function (d) {
       return y(d[1]) - y(d[0]);
     })
-    .attr("fill", "#C7D9E8");
+    .attr("fill", "#F0F0E9");
 
   // Add the dots
   var dots = chart.selectAll("dot")
@@ -141,11 +141,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
     tip.style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px")
     .style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 70 + "px");
 
-    /*  if (it goes off the right side)
-          tip.style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 70 + "px");
-        else
-          tip.style("right", TK)
-    */
+    // if ("cx">width/2) .style("right", (x(data.records) + document.getElementById("chartgoeshere").offsetRight) + -70 + "px");
+    // else .style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 70 + "px");
 
     tip.select("#tip-header")
       .text(data.organisation);
@@ -157,7 +154,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       .text(data.location);
 
     // Add date to these
-    
+
     // Show the tooltip
     tip.classed("hidden", false);
 
@@ -215,7 +212,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       }, 200);
 
       touched = true;
-      
+
     } else if (touched === true) {
       d3.select(this)
         .transition()
