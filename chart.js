@@ -9,6 +9,13 @@ var margin = {
   width = parseInt(d3.select('#chartgoeshere').style('width'), 10) - margin.left - margin.right,
   height = width / 0.3333;
 
+// Define a "move to front" function for the mouseover
+// Thanks to https://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+};
 
 // Create date/time parser
 var parseTime = d3.timeParse("%d/%m/%Y");
@@ -72,7 +79,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     })]).nice();
 
   // Add the dots
-  svg.selectAll("dot")
+  var dots = svg.selectAll("dot")
     .data(data)
     .enter()
     .append("circle")
@@ -87,14 +94,62 @@ d3.csv("breach_level_index.csv", function (error, data) {
     })
     .attr("fill", function (d) {
       if (d.industry == "Government") return "#e85859";
-      else return "#416160"
-    })
+      else return "#416160";
+    });
+
+  // Add mouseover effect
+  dots.on("mouseover", function (data) {
+    d3.select(this)
+      .moveToFront()
+      .transition()
+      .attr("fill", "#6f9b94") // Change colour
+      .attr("r", function (d) {
+        return r(d.records) + 5; // Larger radius
+      });
+
+    // Update tooltip position and values
+    var tip = d3.select("#tooltip");
+
+    tip.style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 90 + "px")
+      .style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px");
 
 
+    tip.select("#tip-header")
+      .text(data.organisation);
 
-    // Add mouseover effect
-    .on("mouseover", function (data) {
+    tip.select("#tip-records")
+      .text(d3.format(",d")(data.records));
+
+    tip.select("#tip-location")
+      .text(data.location);
+
+    // Show the tooltip
+    tip.classed("hidden", false);
+
+  });
+
+  // Add mouseout effect
+  dots.on("mouseout", function (data) {
+    d3.select(this)
+      .transition()
+      .attr("fill", function (d) {
+        if (d.industry == "Government") return "#e85859";
+        else return "#416160";
+      }) // Regular colour again
+      .attr("r", function (d) {
+        return r(d.records); // Radius normal
+      });
+
+    // Hide the tooltip
+    d3.select("#tooltip").classed("hidden", true);
+  });
+
+  // Add touch effect
+  dots.on("touch", function (data) {
+    // If a tooltip is displayed
+    if (touched === false) {
       d3.select(this)
+        .moveToFront()
         .transition()
         .attr("fill", "#6f9b94") // Change colour
         .attr("r", function (d) {
@@ -104,9 +159,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
       // Update tooltip position and values
       var tip = d3.select("#tooltip");
 
-      tip.style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 90 + "px")
-        .style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px");
-
+      tip.style("left", (x(data.records) + ((window.innerWidth - width + margin.left + margin.right) / 2)) + "px")
+        .style("top", y(data.date) + "px");
 
       tip.select("#tip-header")
         .text(data.organisation);
@@ -118,78 +172,31 @@ d3.csv("breach_level_index.csv", function (error, data) {
         .text(data.location);
 
       // Show the tooltip
-      tip.classed("hidden", false);
+      window.setTimeout(function () {
+        tip.classed("hidden", false);
+      }, 200);
 
-    })
-
-    // Add mouseout effect
-    .on("mouseout", function (data) {
+      touched = true;
+    } else if (touched === true) {
       d3.select(this)
         .transition()
         .attr("fill", function (d) {
-            if (d.industry == "Government") return "#e85859";
-            else return "#416160";
-          }) // Regular colour again
+          if (d.industry == "Government") return "#e85859";
+          else return "#416160";
+        }) // Regular colour again
         .attr("r", function (d) {
           return r(d.records); // Radius normal
         });
 
       // Hide the tooltip
       d3.select("#tooltip").classed("hidden", true);
-    })
 
-    // Add touch effect
-    .on("touch", function (data) {
-      // If a tooltip is displayed
-      if (touched === false) {
-        d3.select(this)
-          .transition()
-          .attr("fill", "#6f9b94") // Change colour
-          .attr("r", function (d) {
-            return r(d.records) + 5; // Larger radius
-          });
-
-        // Update tooltip position and values
-        var tip = d3.select("#tooltip");
-
-        tip.style("left", (x(data.records) + ((window.innerWidth - width + margin.left + margin.right) / 2)) + "px")
-          .style("top", y(data.date) + "px");
-
-        tip.select("#tip-header")
-          .text(data.organisation);
-
-        tip.select("#tip-records")
-          .text(d3.format(",d")(data.records));
-
-        tip.select("#tip-location")
-          .text(data.location);
-
-        // Show the tooltip
-        window.setTimeout(function () {
-          tip.classed("hidden", false);
-        }, 200);
-
-        touched = true;
-      } else if (touched === true) {
-        d3.select(this)
-          .transition()
-          .attr("fill", function (d) {
-            if (d.industry == "Government") return "#e85859";
-            else return "#416160";
-          }) // Regular colour again
-          .attr("r", function (d) {
-            return r(d.records); // Radius normal
-          });
-
-        // Hide the tooltip
-        d3.select("#tooltip").classed("hidden", true);
-
-        touched = false;
-      }
-    });
+      touched = false;
+    }
+  });
 
   // Add the x axis
-  svg.append("g")
+  var xaxis = svg.append("g")
     .style("font", "14px sans-serif")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x)
@@ -198,8 +205,51 @@ d3.csv("breach_level_index.csv", function (error, data) {
       }));
 
   // Add the y axis
-  svg.append("g")
+  var yaxis = svg.append("g")
     .style("font", "14px sans-serif")
     .call(d3.axisLeft(y));
+
+
+
+  // Update function
+  function update() {
+
+    // Get new width and height
+    width = parseInt(d3.select('#chartgoeshere').style('width'), 10) - margin.left - margin.right;
+    height = width / 0.3333;
+
+    // Redraw the SVG
+    svg.attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // Redefine the scales
+    x.range([0, width]);
+    y.range([0, height]);
+    r.range([width / 200, width / 10]);
+
+    // Move the dots
+    dots.attr("r", function (d) {
+        return r(d.records);
+      })
+      .attr("cx", function (d) {
+        return x(d.records);
+      })
+      .attr("cy", function (d) {
+        return y(d.date);
+      });
+
+    // Move the axes
+    xaxis.attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x)
+        .tickFormat(function (d) {
+          return x.tickFormat(4, d3.format(",d"))(d);
+        }));
+
+    yaxis.call(d3.axisLeft(y));
+  }
+
+  // Listen for resize and update
+  window.addEventListener("resize", update);
 
 });
