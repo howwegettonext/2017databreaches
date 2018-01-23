@@ -44,8 +44,9 @@ var r = d3.scaleSqrt()
 var svg = d3.select("#chartgoeshere")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+  .attr("height", height + margin.top + margin.bottom);
+  
+var chart = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
@@ -88,7 +89,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     d[1] = parseTime(d[1]);
   });
 
-  var squares = svg.selectAll("square")
+  var squares = chart.selectAll("square")
     .data(backMonths)
     .enter()
     .append("rect")
@@ -104,7 +105,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .attr("fill", "#F8F8F8");
 
   // Add the dots
-  var dots = svg.selectAll("dot")
+  var dots = chart.selectAll("dot")
     .data(data)
     .enter()
     .append("circle")
@@ -243,24 +244,24 @@ d3.csv("breach_level_index.csv", function (error, data) {
 
   var yFormat = d3.timeFormat("%b");
 
-  var xaxis = svg.append("g")
+  var xaxis = chart.append("g")
     .style("font", "14px futura-pt")
     .call(d3.axisTop(x)
       .tickFormat(function (d) {
         return x.tickFormat(4, xFormatAbbrv)(d);
       }));
-  
+
   // Add a label
-  var xLabel = svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (margin.top/-2) + ")")
-      .style("text-anchor", "middle")
-      .style("font", "14px futura-pt")
-      .text("Number of records breached");
+  var xLabel = chart.append("text")
+    .attr("transform",
+      "translate(" + (width / 2) + " ," +
+      (margin.top / -2) + ")")
+    .style("text-anchor", "middle")
+    .style("font", "14px futura-pt")
+    .text("Number of records breached");
 
   // Add the y axis
-  var yaxis = svg.append("g")
+  var yaxis = chart.append("g")
     .style("font", "14px futura-pt")
     .call(d3.axisLeft(y)
       .tickFormat(function (d) {
@@ -277,9 +278,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
 
     // Redraw the SVG
     svg.attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("height", height + margin.top + margin.bottom);
+    
     // Redefine the scales
     x.range([0, width]);
     y.range([0, height]);
@@ -310,11 +310,11 @@ d3.csv("breach_level_index.csv", function (error, data) {
       .tickFormat(function (d) {
         return x.tickFormat(4, xFormatAbbrv)(d);
       }));
-    
+
     xLabel.attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (margin.top/-2) + ")");
-    
+      "translate(" + (width / 2) + " ," +
+      (margin.top / -2) + ")");
+
     yaxis.call(d3.axisLeft(y)
       .tickFormat(function (d) {
         return y.tickFormat(4, yFormat)(d);
