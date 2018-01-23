@@ -89,7 +89,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     d[1] = parseTime(d[1]);
   });
 
-  var squares = chart.selectAll("square")
+  var rects = chart.selectAll("rect")
     .data(backMonths)
     .enter()
     .append("rect")
@@ -98,11 +98,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
       return y(d[0]);
     })
     .attr("width", width)
-    //.attr("height", month)
     .attr("height", function (d) {
       return y(d[1]) - y(d[0]);
     })
-    .attr("fill", "#F8F8F8");
+    .attr("fill", "#C7D9E8");
 
   // Add the dots
   var dots = chart.selectAll("dot")
@@ -139,9 +138,14 @@ d3.csv("breach_level_index.csv", function (error, data) {
     // Update tooltip position and values
     var tip = d3.select("#tooltip");
 
-    tip.style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 90 + "px")
-      .style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px");
+    tip.style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px")
+    .style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 70 + "px");
 
+    /*  if (it goes off the right side)
+          tip.style("left", (x(data.records) + document.getElementById("chartgoeshere").offsetLeft) + 70 + "px");
+        else
+          tip.style("right", TK)
+    */
 
     tip.select("#tip-header")
       .text(data.organisation);
@@ -152,6 +156,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
     tip.select("#tip-location")
       .text(data.location);
 
+    // Add date to these
+    
     // Show the tooltip
     tip.classed("hidden", false);
 
@@ -209,6 +215,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       }, 200);
 
       touched = true;
+      
     } else if (touched === true) {
       d3.select(this)
         .transition()
@@ -297,7 +304,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       });
 
     // Move the squares
-    squares.attr("y", function (d) {
+    rects.attr("y", function (d) {
         return y(d[0]);
       })
       .attr("width", width)
