@@ -1,10 +1,13 @@
+// =============================
 // This is the main chart script
+// =============================
+
 // Set chart size
 var margin = {
-    top: 20,
-    right: 50,
+    top: 60,
+    right: 15,
     bottom: 20,
-    left: 100
+    left: 35
   },
   width = parseInt(d3.select('#chartgoeshere').style('width'), 10) - margin.left - margin.right,
   height = width / 0.3333;
@@ -62,7 +65,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
   })]).nice();
 
   // Y goes from the start date to end date, set above
-  y.domain([startDate,endDate]);
+  y.domain([startDate, endDate]);
 
   // Circle radius goes from min to max of the dataset
   r.domain([d3.min(data, function (d) {
@@ -73,31 +76,29 @@ d3.csv("breach_level_index.csv", function (error, data) {
     })]).nice();
 
   // Draw the background squares
-  var backMonths = [["30/12/2016", "01/02/2017"], 
-                    ["01/03/2017", "01/04/2017"], 
-                    ["01/05/2017", "01/06/2017"], 
-                    ["01/07/2017", "01/08/2017"], 
-                    ["01/09/2017", "01/10/2017"], 
-                    ["01/11/2017", "01/12/2017"]]
-  
-  backMonths.forEach(function(d) {
+  var backMonths = [["30/12/2016", "01/02/2017"],
+                    ["01/03/2017", "01/04/2017"],
+                    ["01/05/2017", "01/06/2017"],
+                    ["01/07/2017", "01/08/2017"],
+                    ["01/09/2017", "01/10/2017"],
+                    ["01/11/2017", "01/12/2017"]];
+
+  backMonths.forEach(function (d) {
     d[0] = parseTime(d[0]);
     d[1] = parseTime(d[1]);
-  })
-  
-  //var month = y(parseTime("01/02/2017")) - y(parseTime("01/01/2017"));
-  
+  });
+
   var squares = svg.selectAll("square")
     .data(backMonths)
     .enter()
     .append("rect")
     .attr("x", 0)
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return y(d[0]);
     })
     .attr("width", width)
     //.attr("height", month)
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return y(d[1]) - y(d[0]);
     })
     .attr("fill", "#F8F8F8");
@@ -226,18 +227,45 @@ d3.csv("breach_level_index.csv", function (error, data) {
   });
 
   // Add the x axis
+  var xFormat = d3.format(".0s");
+
+  // Make the SI "G" and "M" labels into "b" for billion and "m" for million respectively
+  function xFormatAbbrv(x) {
+    var s = xFormat(x);
+    switch (s[s.length - 1]) {
+      case "G":
+        return s.slice(0, -1) + "b";
+      case "M":
+        return s.slice(0, -1) + "m";
+    }
+    return s;
+  }
+
+  var yFormat = d3.timeFormat("%b");
+
   var xaxis = svg.append("g")
     .style("font", "14px futura-pt")
-    //.attr("transform", "translate(0," + height + ")")
     .call(d3.axisTop(x)
       .tickFormat(function (d) {
-        return x.tickFormat(4, d3.format(",d"))(d);
+        return x.tickFormat(4, xFormatAbbrv)(d);
       }));
+  
+  // Add a label
+  svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (margin.top/-2) + ")")
+      .style("text-anchor", "middle")
+      .style("font", "14px futura-pt")
+      .text("Records breached");
 
   // Add the y axis
   var yaxis = svg.append("g")
     .style("font", "14px futura-pt")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y)
+      .tickFormat(function (d) {
+        return y.tickFormat(4, yFormat)(d);
+      }));
 
   // Update function
   // via https://bl.ocks.org/curran/3a68b0c81991e2e94b19
@@ -267,22 +295,21 @@ d3.csv("breach_level_index.csv", function (error, data) {
       .attr("cy", function (d) {
         return y(d.date);
       });
-    
+
     // Move the squares
-    squares.attr("y", function(d) {
-      return y(d[0]);
-    })
-    .attr("width", width)
-    //.attr("height", month)
-    .attr("height", function(d) {
-      return y(d[1]) - y(d[0]);
-    })
+    squares.attr("y", function (d) {
+        return y(d[0]);
+      })
+      .attr("width", width)
+      .attr("height", function (d) {
+        return y(d[1]) - y(d[0]);
+      });
 
     // Move the axes
     xaxis.call(d3.axisTop(x)
-        .tickFormat(function (d) {
-          return x.tickFormat(4, d3.format(",d"))(d);
-        }));
+      .tickFormat(function (d) {
+        return x.tickFormat(4, xFormatAbbrv)(d);
+      }));
 
     yaxis.call(d3.axisLeft(y));
   }
