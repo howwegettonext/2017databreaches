@@ -24,7 +24,7 @@ var parseTime = d3.timeParse("%d/%m/%Y");
 var touched = false;
 
 // Create an end date for the Y axis - currently mid-September
-var endDate = parseTime("15/09/2017");
+var endDate = parseTime("01/10/2017");
 
 // Set ranges
 var x = d3.scaleLog()
@@ -77,6 +77,36 @@ d3.csv("breach_level_index.csv", function (error, data) {
 			  d3.max(data, function (d) {
       return d.records;
     })]).nice();
+
+  // Draw the background squares
+  var backMonths = [["01/01/2017", "01/02/2017"], 
+                    ["01/03/2017", "01/04/2017"], 
+                    ["01/05/2017", "01/06/2017"], 
+                    ["01/07/2017", "01/08/2017"], 
+                    ["01/09/2017", "01/10/2017"], 
+                    ["01/11/2017", "01/12/2017"]]
+  
+  backMonths.forEach(function(d) {
+    d[0] = parseTime(d[0]);
+    d[1] = parseTime(d[1]);
+  })
+  
+  //var month = y(parseTime("01/02/2017")) - y(parseTime("01/01/2017"));
+  
+  var squares = svg.selectAll("square")
+    .data(backMonths)
+    .enter()
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", function(d) {
+      return y(d[0]);
+    })
+    .attr("width", width)
+    //.attr("height", month)
+    .attr("height", function(d) {
+      return y(d[1]) - y(d[0]);
+    })
+    .attr("fill", "#F8F8F8");
 
   // Add the dots
   var dots = svg.selectAll("dot")
