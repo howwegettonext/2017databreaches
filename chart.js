@@ -315,7 +315,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
             "translate(" + (width/2) + " ," + 
                            (margin.top/-2) + ")");
     
-    yaxis.call(d3.axisLeft(y));
+    yaxis.call(d3.axisLeft(y)
+      .tickFormat(function (d) {
+        return y.tickFormat(4, yFormat)(d);
+      }));
   }
 
   // Listen for resize and update
