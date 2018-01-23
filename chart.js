@@ -41,12 +41,12 @@ var r = d3.scaleSqrt()
   .range([width / 150, width / 10]);
 
 // Add an SVG element
-var svg = d3.select("#chartgoeshere")
+var chartContainer = d3.select("#chartgoeshere")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom);
-  
-var chart = svg.append("g")
+
+var chart = chartContainer.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
@@ -277,9 +277,9 @@ d3.csv("breach_level_index.csv", function (error, data) {
     height = width / 0.3333;
 
     // Redraw the SVG
-    svg.attr("width", width + margin.left + margin.right)
+    chartContainer.attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
-    
+
     // Redefine the scales
     x.range([0, width]);
     y.range([0, height]);
