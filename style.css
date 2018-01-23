@@ -9,7 +9,8 @@ h1 {
 }
 
 #mainwidth {
-	width: 850px;
+	width: 90%;
+	max-width: 850px;
 	height: auto;
 	padding: 2px 20px;
 	background-color: white;
