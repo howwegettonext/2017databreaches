@@ -203,7 +203,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 
   // Add the x axis
   var xaxis = svg.append("g")
-    .style("font", "14px sans-serif")
+    .style("font", "14px futura-pt")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x)
       .tickFormat(function (d) {
@@ -212,12 +212,11 @@ d3.csv("breach_level_index.csv", function (error, data) {
 
   // Add the y axis
   var yaxis = svg.append("g")
-    .style("font", "14px sans-serif")
+    .style("font", "14px futura-pt")
     .call(d3.axisLeft(y));
 
-
-
   // Update function
+  // via https://bl.ocks.org/curran/3a68b0c81991e2e94b19
   function update() {
 
     // Get new width and height
@@ -256,7 +255,6 @@ d3.csv("breach_level_index.csv", function (error, data) {
   }
 
   // Listen for resize and update
-  // via https://bl.ocks.org/curran/3a68b0c81991e2e94b19
   window.addEventListener("resize", update);
 
 });
