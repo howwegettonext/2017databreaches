@@ -251,13 +251,13 @@ d3.csv("breach_level_index.csv", function (error, data) {
       }));
   
   // Add a label
-  svg.append("text")             
+  var xLabel = svg.append("text")             
       .attr("transform",
             "translate(" + (width/2) + " ," + 
                            (margin.top/-2) + ")")
       .style("text-anchor", "middle")
       .style("font", "14px futura-pt")
-      .text("Records breached");
+      .text("Number of records breached");
 
   // Add the y axis
   var yaxis = svg.append("g")
@@ -310,7 +310,11 @@ d3.csv("breach_level_index.csv", function (error, data) {
       .tickFormat(function (d) {
         return x.tickFormat(4, xFormatAbbrv)(d);
       }));
-
+    
+    xLabel.attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (margin.top/-2) + ")");
+    
     yaxis.call(d3.axisLeft(y));
   }
 
