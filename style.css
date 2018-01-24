@@ -10,7 +10,7 @@ h1 {
 
 #mainwidth {
 	width: 90%;
-	max-width: 850px;
+    max-width: 850px;
 	height: auto;
 	padding: 2px 20px;
 	background-color: white;
@@ -22,7 +22,7 @@ h1 {
 
 #tooltip {
 	position: absolute;
-	width: 300px;
+	width: 200px;
 	height: auto;
 	padding: 15px;
 	background-color: white;
