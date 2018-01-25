@@ -1,7 +1,25 @@
+* {
+margin: 0;
+padding: 0;
+}
+
 body {
 	font-family: "futura-pt", sans-serif;
 	color: #f4eedf;
 	background-color: #272924;
+}
+
+h1 {
+	padding-top: 20px;
+}
+
+h2 {
+	padding-bottom: 10px;
+}
+
+p {
+	font-size: 18px;
+	padding: 10px 0;
 }
 
 a {
@@ -60,10 +78,13 @@ a {
 	float: right;
 }
 
+.seriestitle {
+	padding-top: 17px;
+}
+
 .button {
 	height: 40px;
 	width: auto;
-	margin: 5px;
 }
 
 .imgcenter {
@@ -71,4 +92,8 @@ a {
 	margin-left: auto;
 	margin-right: auto;
 	width: 30%;
+}
+
+#nextlogo {
+		margin-top: 10px;
 }
