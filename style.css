@@ -1,19 +1,19 @@
 body {
-	background: #ece4ca;
 	font-family: "futura-pt", sans-serif;
+	color: #f4eedf;
+	background-color: #272924;
 }
 
-h1 {
-	text-align: center;
-	font-family: "futura-pt-bold", sans-serif;
+a {
+	color: #69938d;
+	text-decoration: none;
 }
 
 #mainwidth {
 	width: 90%;
-    max-width: 850px;
+	max-width: 850px;
 	height: auto;
 	padding: 2px 20px;
-	background-color: white;
 	margin: 0 auto;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -22,10 +22,9 @@ h1 {
 
 #tooltip {
 	position: absolute;
-	width: 200px;
+	width: 300px;
 	height: auto;
 	padding: 15px;
-	background-color: white;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -51,4 +50,25 @@ h1 {
 
 #outro {
 	text-align: center;
+}
+
+#header {
+	display: inline-block;
+}
+
+.right {
+	float: right;
+}
+
+.button {
+	height: 40px;
+	width: auto;
+	margin: 5px;
+}
+
+.imgcenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
 }
