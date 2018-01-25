@@ -101,7 +101,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .attr("height", function (d) {
       return y(d[1]) - y(d[0]);
     })
-    .attr("fill", "#f0f0f0");
+    .attr("fill", "#F0F0E9");
 
   // Add the dots
   var dots = chart.selectAll("dot")
