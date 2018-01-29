@@ -305,31 +305,31 @@ d3.csv("breach_level_index.csv", function (error, data) {
   var xLabel = chart.append("text")
     .attr("transform",
       "translate(" + 0 + " ," +
-      ((margin.top / -2)) + ")")
+      ((margin.top / -2) + 10) + ")")
     .style("text-anchor", "left")
     .style("font", "18px futura-pt")
     .style("fill", axisWhite)
-    .text("Number of records breached from ");
+    .text("Number of records breached:");
 
   var legGov = chart.append("text")
     .attr("id", "legend")
     .attr("transform",
-      "translate(" + 242 + " ," +
-      ((margin.top / -2)) + ")")
+      "translate(" + (width-175) + " ," +
+      ((margin.top / -2) + 10) + ")")
     .style("fill", govCol)
-    .style("text-anchor", "left")
+    .style("text-anchor", "right")
     .style("font", "18px futura-pt")
     .text("government, ");
 
   var legOth = chart.append("text")
     .attr("id", "legend")
     .attr("transform",
-      "translate(" + 332 + " ," +
-      ((margin.top / -2)) + ")")
+      "translate(" + (width - 85) + " ," +
+      ((margin.top / -2) + 10) + ")")
     .style("fill", othCol)
-    .style("text-anchor", "left")
+    .style("text-anchor", "right")
     .style("font", "18px futura-pt")
-    .text("other");
+    .text("other sectors");
 
   // Now define the axis
   var xaxis = chart.append("g")
