@@ -4,7 +4,7 @@
 
 // Set chart size
 var margin = {
-    top: 60,
+    top: 80,
     right: 15,
     bottom: 20,
     left: 35
@@ -32,12 +32,12 @@ var endDate = parseTime("31/12/2017");
 
 // Set colours
 var govCol = "#e85859",
-    govColHigh = "#f8957e",
-    othCol = "#416160",
-    othColHigh = "#6f9b94",
-    rectFill = "#353831",
-    axisWhite = "#f4eedf";
-    
+  govColHigh = "#f8957e",
+  othCol = "#416160",
+  othColHigh = "#6f9b94",
+  rectFill = "#353831",
+  axisWhite = "#f4eedf";
+
 // Set ranges
 var x = d3.scaleLog()
   .range([0, width]);
@@ -140,7 +140,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       .attr("fill", function (d) { // Change colour
         if (d.industry == "Government") return govColHigh;
         else return othColHigh;
-      }) 
+      })
       .attr("r", function (d) {
         return r(d.records) + 5; // Larger radius
       });
@@ -304,12 +304,32 @@ d3.csv("breach_level_index.csv", function (error, data) {
   // Add a label
   var xLabel = chart.append("text")
     .attr("transform",
-      "translate(" + (width / 2) + " ," +
-      (margin.top / -2) + ")")
-    .style("text-anchor", "middle")
-    .style("font", "20px futura-pt")
+      "translate(" + 0 + " ," +
+      ((margin.top / -2)) + ")")
+    .style("text-anchor", "left")
+    .style("font", "18px futura-pt")
     .style("fill", axisWhite)
-    .text("Number of records breached");
+    .text("Number of records breached from ");
+
+  var legGov = chart.append("text")
+    .attr("id", "legend")
+    .attr("transform",
+      "translate(" + 242 + " ," +
+      ((margin.top / -2)) + ")")
+    .style("fill", govCol)
+    .style("text-anchor", "left")
+    .style("font", "18px futura-pt")
+    .text("government, ");
+
+  var legOth = chart.append("text")
+    .attr("id", "legend")
+    .attr("transform",
+      "translate(" + 332 + " ," +
+      ((margin.top / -2)) + ")")
+    .style("fill", othCol)
+    .style("text-anchor", "left")
+    .style("font", "18px futura-pt")
+    .text("other");
 
   // Now define the axis
   var xaxis = chart.append("g")
@@ -322,10 +342,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
   xaxis.selectAll("text")
     .style("font", "14px futura-pt")
     .style("stroke", axisWhite);
-  
+
   xaxis.selectAll("line")
     .style("stroke", axisWhite);
-  
+
   xaxis.selectAll("path")
     .style("stroke", axisWhite);
 
@@ -344,10 +364,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
   yaxis.selectAll("text")
     .style("font", "14px futura-pt")
     .style("stroke", axisWhite);
-  
+
   yaxis.selectAll("line")
     .style("stroke", axisWhite);
-  
+
   yaxis.selectAll("path")
     .style("stroke", axisWhite);
 
@@ -395,10 +415,6 @@ d3.csv("breach_level_index.csv", function (error, data) {
       .tickFormat(function (d) {
         return x.tickFormat(4, xFormatAbbrv)(d);
       }));
-
-    xLabel.attr("transform",
-      "translate(" + (width / 2) + " ," +
-      (margin.top / -2) + ")");
 
     yaxis.call(d3.axisLeft(y)
       .tickFormat(function (d) {
