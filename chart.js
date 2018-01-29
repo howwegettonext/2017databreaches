@@ -122,6 +122,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
       else return "#416160";
     });
 
+  // =====================================================
+
   // Add mouseover effect
   dots.on("mouseover", function (data) {
     d3.select(this)
@@ -273,7 +275,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
     }
   });*/
 
+  // =====================================================
+
   // Add the x axis
+  // First set the text format
   var xFormat = d3.format(".0s");
 
   // Make the SI "G" and "M" labels into "b" for billion and "m" for million respectively
@@ -288,15 +293,6 @@ d3.csv("breach_level_index.csv", function (error, data) {
     return s;
   }
 
-  var yFormat = d3.timeFormat("%b");
-
-  var xaxis = chart.append("g")
-    .style("font", "14px futura-pt")
-    .call(d3.axisTop(x)
-      .tickFormat(function (d) {
-        return x.tickFormat(4, xFormatAbbrv)(d);
-      }));
-
   // Add a label
   var xLabel = chart.append("text")
     .attr("transform",
@@ -304,15 +300,50 @@ d3.csv("breach_level_index.csv", function (error, data) {
       (margin.top / -2) + ")")
     .style("text-anchor", "middle")
     .style("font", "14px futura-pt")
+    .style("fill", "#f4eedf")
     .text("Number of records breached");
 
-  // Add the y axis
-  var yaxis = chart.append("g")
+  // Now define the axis
+  var xaxis = chart.append("g")
+    .call(d3.axisTop(x)
+      .tickFormat(function (d) {
+        return x.tickFormat(4, xFormatAbbrv)(d);
+      }));
+
+  // Style it
+  xaxis.selectAll("text")
     .style("font", "14px futura-pt")
+    .style("stroke", "#f4eedf");
+  
+  xaxis.selectAll("line")
+    .style("stroke", "#f4eedf");
+  
+  xaxis.selectAll("path")
+    .style("stroke", "#f4eedf");
+
+  // Add the y axis
+  // First set the text format
+  var yFormat = d3.timeFormat("%b");
+
+  // Then define the axis
+  var yaxis = chart.append("g")
     .call(d3.axisLeft(y)
       .tickFormat(function (d) {
         return y.tickFormat(4, yFormat)(d);
       }));
+
+  // Then style it
+  yaxis.selectAll("text")
+    .style("font", "14px futura-pt")
+    .style("stroke", "#f4eedf");
+  
+  yaxis.selectAll("line")
+    .style("stroke", "#f4eedf");
+  
+  yaxis.selectAll("path")
+    .style("stroke", "#f4eedf");
+
+  // =====================================================
 
   // Update function
   // via https://bl.ocks.org/curran/3a68b0c81991e2e94b19
