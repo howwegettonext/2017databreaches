@@ -299,7 +299,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       "translate(" + (width / 2) + " ," +
       (margin.top / -2) + ")")
     .style("text-anchor", "middle")
-    .style("font", "14px futura-pt")
+    .style("font", "20px futura-pt")
     .style("fill", "#f4eedf")
     .text("Number of records breached");
 
