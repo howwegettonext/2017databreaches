@@ -314,20 +314,20 @@ d3.csv("breach_level_index.csv", function (error, data) {
   var legGov = chart.append("text")
     .attr("id", "legend")
     .attr("transform",
-      "translate(" + (width-175) + " ," +
-      ((margin.top / -2) + 10) + ")")
+      "translate(" + 0 + " ," +
+      ((margin.top / -2) + - 10) + ")")
     .style("fill", govCol)
-    .style("text-anchor", "right")
+    .style("text-anchor", "left")
     .style("font", "18px futura-pt")
-    .text("government, ");
+    .text("Government, ");
 
   var legOth = chart.append("text")
     .attr("id", "legend")
     .attr("transform",
-      "translate(" + (width - 85) + " ," +
-      ((margin.top / -2) + 10) + ")")
+      "translate(" + 95 + " ," +
+      ((margin.top / -2) - 10) + ")")
     .style("fill", othCol)
-    .style("text-anchor", "right")
+    .style("text-anchor", "left")
     .style("font", "18px futura-pt")
     .text("other sectors");
 
