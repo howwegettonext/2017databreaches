@@ -3,6 +3,7 @@
 
 <head>
 	<title>100 Biggest Data Breaches of 2017</title>
+	<link rel="icon" href="images/favicon.png" type="image/png" sizes="24x24">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http - equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="style.css">
@@ -13,31 +14,39 @@
 	<main>
 		<script src="//d3js.org/d3.v4.js"></script>
 		<div id="mainwidth">
-			<div class="right">
-				<h3 id="seriestitle">THE ID QUESTION</h3>
-			</div>
 			<div id="header">
-				<img src="images/next.png" class="button" id="nextlogo" alt="How We Get to Next Home">
+				<a href="https://howwegettonext.com/"><img src="images/next.png" class="button" id="nextlogo" alt="How We Get to Next Home"></a>
+			</div>
+			<div class="right">
+				<h3 id="seriestitle"><a href="https://howwegettonext.com/the-id-question-6fb3b56052b5">THE ID QUESTION</a></h3>
 			</div>
 			<h1>100 Biggest Data Breaches of 2017</h1>
 			<h2>A lil somethin extra here please</h2>
 			<p>In this episode specifically, we examine individual power to control identities online when the state and corporations like Facebook and Google are the ones who control the way our data is stored, and in many cases, used. What happens when these organisations - whether government or corporate - are hacked, and our data is rendered vulnerable?</p>
-
 			<p>We're not talking about hypotheticals though - this chart will show you the real extent of this problem. Have a play around by hovering over each circle. To read more, make sure you follow How We Get To Next online, and to discuss identities in more detail, join the series Facebook group.</p>
 			<div id="chartgoeshere">
-				<div id="tooltip" , class="hidden">
+				<div id="tooltip" class="hidden">
 					<p><strong><span id = "tip-header">Header</span></strong></p>
-					<p><em><span id="tip-location">Location</span> - <span id="tip-date">1 January 1979</span></em></p>
+					<p><em><span id="tip-location">Location</span></em></p>
 					<p>Records lost: <span id="tip-records">9999</span></p>
 				</div>
 			</div>
 			<div id="outro">
-				<p>This bubble chart was created in <a href="https://d3js.org/">D3v4.js</a> by <a href="http://duncangeere.com">Duncan Geere</a> and <a href="http://storythings.com">Storythings</a> for <a href="https://youtube.com/watch?v=L_jWHffIx5E">the ID Question</a>. Data from <a href="http://breachlevelindex.com/data-breach-database">Breach Level Index</a>.</p>
-				<img src="images/twitter.svg" class="right button">
-				<img src="images/facebook.svg" class="right button">
+				<p>This bubble chart was created in <a href="https://d3js.org/">D3v4.js</a> by <a href="http://duncangeere.com">Duncan Geere</a> and <a href="http://storythings.com">Storythings</a> for <a href="https://youtube.com/watch?v=L_jWHffIx5E">the ID Question</a>.</p>
+				<p id="credits">Data from <a href="http://breachlevelindex.com/data-breach-database">Breach Level Index</a>.</p>
+				<a href="https://www.facebook.com/">
+					<svg class="right button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 167.657 167.657" style="enable-background:new 0 0 167.657 167.657;" xml:space="preserve" width="512px" height="512px">
+						<path class="social" d="M83.829,0.349C37.532,0.349,0,37.881,0,84.178c0,41.523,30.222,75.911,69.848,82.57v-65.081H49.626   v-23.42h20.222V60.978c0-20.037,12.238-30.956,30.115-30.956c8.562,0,15.92,0.638,18.056,0.919v20.944l-12.399,0.006   c-9.72,0-11.594,4.618-11.594,11.397v14.947h23.193l-3.025,23.42H94.026v65.653c41.476-5.048,73.631-40.312,73.631-83.154   C167.657,37.881,130.125,0.349,83.829,0.349z" fill="#6f9b94"/>
+					</svg>
+				</a>
+				<a href="https://twitter.com/">
+					<svg class="right button" id="twitter" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve" width="512px" height="512px">
+							<path class="social" d="M612,116.258c-22.525,9.981-46.694,16.75-72.088,19.772c25.929-15.527,45.777-40.155,55.184-69.411    c-24.322,14.379-51.169,24.82-79.775,30.48c-22.907-24.437-55.49-39.658-91.63-39.658c-69.334,0-125.551,56.217-125.551,125.513    c0,9.828,1.109,19.427,3.251,28.606C197.065,206.32,104.556,156.337,42.641,80.386c-10.823,18.51-16.98,40.078-16.98,63.101    c0,43.559,22.181,81.993,55.835,104.479c-20.575-0.688-39.926-6.348-56.867-15.756v1.568c0,60.806,43.291,111.554,100.693,123.104    c-10.517,2.83-21.607,4.398-33.08,4.398c-8.107,0-15.947-0.803-23.634-2.333c15.985,49.907,62.336,86.199,117.253,87.194    c-42.947,33.654-97.099,53.655-155.916,53.655c-10.134,0-20.116-0.612-29.944-1.721c55.567,35.681,121.536,56.485,192.438,56.485    c230.948,0,357.188-191.291,357.188-357.188l-0.421-16.253C573.872,163.526,595.211,141.422,612,116.258z" fill="#6f9b94"/>
+					</svg>
+				</a>
 			</div>
 			<div id="seriesintro">
-				<img src="images/idquestion.gif" alt="ID Question Hub" id="serieslogo">
+				<a href="https://howwegettonext.com/the-id-question-6fb3b56052b5"><img src="images/idquestion.png" alt="ID Question Hub" id="serieslogo"></a>
 				<p>The ID Question is a How We Get To Next and Storythings production.</p>
 				<p>If you liked this story, please click on the applause button on Medium to recommend it to your friends. Join the series Facebook group here to discuss the subject of identity in the modern age with us.</p>
 			</div>

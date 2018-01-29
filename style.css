@@ -25,9 +25,21 @@ p {
 	padding: 10px 0;
 }
 
+#credits {
+	padding: 0;
+}
+
 a {
-	color: #69938d;
+	color: #6f9b94;
 	text-decoration: none;
+  transition: 200ms;
+  transition-timing-function: ease-in-out;
+  -webkit-transition: 200ms;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+a:hover {
+	color: #8EC7BF;
 }
 
 /* CONTAINER */
@@ -72,6 +84,7 @@ a {
 	width: 300px;
 	height: auto;
 	padding: 15px;
+	background: #f4eedf;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -89,6 +102,7 @@ a {
 	margin: 0;
 	font-size: 16px;
 	line-height: 20px;
+	padding: 2px
 }
 
 #chart {
@@ -99,6 +113,21 @@ a {
 
 #outro {
 	text-align: center;
+}
+
+a svg .social {
+  transition: 200ms;
+  transition-timing-function: ease-in-out;
+  -webkit-transition: 200ms;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+a svg:hover .social {
+	fill: #8EC7BF;
+}
+
+#twitter {
+	padding-right: 10px;
 }
 
 /* SERIES INTRO */
