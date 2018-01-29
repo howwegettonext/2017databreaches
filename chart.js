@@ -170,7 +170,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
     tip.select("#tip-location")
       .text(data.location);
 
-    // Add date to these
+    tip.select("#tip-date")
+      .text(d3.timeFormat("%e %b %Y")(data.date));
 
     // Show the tooltip
     tip.classed("hidden", false);
