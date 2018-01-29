@@ -137,19 +137,29 @@ d3.csv("breach_level_index.csv", function (error, data) {
 
     // Update tooltip position and values
     var tip = d3.select("#tooltip");
-    var pageOffset = document.getElementById("chartgoeshere").offsetLeft;
 
+    tip.style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px");
 
-    tip.style("top", (y(data.date) + document.getElementById("chartgoeshere").offsetTop) + 30 + "px")
-    .style("left", (x(data.records) + pageOffset) + 70 + "px");
+    var pageOffset = document.getElementById("chartgoeshere").offsetLeft,
+      chartOffset = x(data.records),
+      pointOffset = 70,
+      tipWidth = parseInt(tip.style("width").slice(0, -2)),
+      pageWidth = window.innerWidth;
 
-    // if ((pageOffset + x(data.records) + pointOffset + tipWidth) > pageWidth) {
-    //     // i.e. the right side of the tooltip goes off the edge of the page
-    //     .style("right", (pageOffset + x(data.records) - 70 + "px");
-    // } else {
-    //     // i.e. the right side of the tooltip doesn't go off the edge of the page
-    //     .style("left", (pageOffset + x(data.records) + 70 + "px");
-    // }
+    if ((pageOffset + chartOffset + pointOffset + tipWidth + 15) > pageWidth) {
+      // The right side of the tooltip goes off the edge of the page
+      if ((pageOffset + chartOffset - pointOffset - tipWidth - 15) < 0) {
+        // The left side of the tooltip goes off the edge of the page
+        // Then centre-align the tooltip on the dot
+        tip.style("left", (pageOffset + chartOffset - (tipWidth / 2) + "px"));
+      } else {
+        // Then right-align the tooltip with the dot
+        tip.style("left", (pageOffset + chartOffset - tipWidth - pointOffset + "px"));
+      }
+    } else {
+      // Then left-align the tooltip with the dot
+      tip.style("left", (pageOffset + chartOffset + pointOffset + "px"));
+    }
 
     tip.select("#tip-header")
       .text(data.organisation);
@@ -183,10 +193,13 @@ d3.csv("breach_level_index.csv", function (error, data) {
     d3.select("#tooltip").classed("hidden", true);
   });
 
+  /*
   // Add touch effect
   dots.on("touch", function (data) {
     // If a tooltip is displayed
+    console.log("Touch detected!")
     if (touched === false) {
+      console.log("Tooltip Activate!");
       d3.select(this)
         .moveToFront()
         .transition()
@@ -201,8 +214,28 @@ d3.csv("breach_level_index.csv", function (error, data) {
       // Update tooltip position and values
       var tip = d3.select("#tooltip");
 
-      tip.style("left", (x(data.records) + ((window.innerWidth - width + margin.left + margin.right) / 2)) + "px")
-        .style("top", y(data.date) + "px");
+      tip.style("top", y(data.date) + "px");
+
+      var pageOffset = document.getElementById("chartgoeshere").offsetLeft,
+        chartOffset = x(data.records),
+        pointOffset = 70,
+        tipWidth = parseInt(tip.style("width").slice(0, -2)),
+        pageWidth = window.innerWidth;
+
+      if ((pageOffset + chartOffset + pointOffset + tipWidth + 15) > pageWidth) {
+        // The right side of the tooltip goes off the edge of the page
+        if ((pageOffset + chartOffset - pointOffset - tipWidth - 15) < 0) {
+          // The left side of the tooltip goes off the edge of the page
+          // Then centre-align the tooltip on the dot
+          tip.style("left", (pageOffset + chartOffset - (tipWidth / 2) + "px"));
+        } else {
+          // Then right-align the tooltip with the dot
+          tip.style("left", (pageOffset + chartOffset - tipWidth - pointOffset + "px"));
+        }
+      } else {
+        // Then left-align the tooltip with the dot
+        tip.style("left", (pageOffset + chartOffset + pointOffset + "px"));
+      }
 
       tip.select("#tip-header")
         .text(data.organisation);
@@ -221,6 +254,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       touched = true;
 
     } else if (touched === true) {
+      console.log("Tooltip Deactivated!");
       d3.select(this)
         .transition()
         .attr("fill", function (d) {
@@ -236,7 +270,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 
       touched = false;
     }
-  });
+  });*/
 
   // Add the x axis
   var xFormat = d3.format(".0s");
