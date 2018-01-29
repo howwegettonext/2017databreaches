@@ -30,6 +30,14 @@ var touched = false;
 var startDate = parseTime("30/12/2016");
 var endDate = parseTime("31/12/2017");
 
+// Set colours
+var govCol = "#e85859",
+    govColHigh = "#f8957e",
+    othCol = "#416160",
+    othColHigh = "#6f9b94",
+    rectFill = "#353831",
+    axisWhite = "#f4eedf";
+    
 // Set ranges
 var x = d3.scaleLog()
   .range([0, width]);
@@ -101,7 +109,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .attr("height", function (d) {
       return y(d[1]) - y(d[0]);
     })
-    .attr("fill", "#353831");
+    .attr("fill", rectFill);
 
   // Add the dots
   var dots = chart.selectAll("dot")
@@ -118,8 +126,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
       return y(d.date);
     })
     .attr("fill", function (d) {
-      if (d.industry == "Government") return "#e85859";
-      else return "#416160";
+      if (d.industry == "Government") return govCol;
+      else return othCol;
     });
 
   // =====================================================
@@ -129,10 +137,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
     d3.select(this)
       .moveToFront()
       .transition()
-      .attr("fill", function (d) {
-        if (d.industry == "Government") return "#f8957e";
-        else return "#6f9b94";
-      }) // Change colour
+      .attr("fill", function (d) { // Change colour
+        if (d.industry == "Government") return govColHigh;
+        else return othColHigh;
+      }) 
       .attr("r", function (d) {
         return r(d.records) + 5; // Larger radius
       });
@@ -185,8 +193,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
     d3.select(this)
       .transition()
       .attr("fill", function (d) {
-        if (d.industry == "Government") return "#e85859";
-        else return "#416160";
+        if (d.industry == "Government") return govCol;
+        else return othCol;
       }) // Regular colour again
       .attr("r", function (d) {
         return r(d.records); // Radius normal
@@ -207,8 +215,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
         .moveToFront()
         .transition()
         .attr("fill", function (d) {
-          if (d.industry == "Government") return "#f8957e";
-          else return "#6f9b94";
+          if (d.industry == "Government") return govColHigh;
+          else return othColHigh;
         }) // Change colour
         .attr("r", function (d) {
           return r(d.records) + 5; // Larger radius
@@ -261,8 +269,8 @@ d3.csv("breach_level_index.csv", function (error, data) {
       d3.select(this)
         .transition()
         .attr("fill", function (d) {
-          if (d.industry == "Government") return "#e85859";
-          else return "#416160";
+          if (d.industry == "Government") return govCol;
+          else return othCol;
         }) // Regular colour again
         .attr("r", function (d) {
           return r(d.records); // Radius normal
@@ -300,7 +308,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
       (margin.top / -2) + ")")
     .style("text-anchor", "middle")
     .style("font", "20px futura-pt")
-    .style("fill", "#f4eedf")
+    .style("fill", axisWhite)
     .text("Number of records breached");
 
   // Now define the axis
@@ -313,13 +321,13 @@ d3.csv("breach_level_index.csv", function (error, data) {
   // Style it
   xaxis.selectAll("text")
     .style("font", "14px futura-pt")
-    .style("stroke", "#f4eedf");
+    .style("stroke", axisWhite);
   
   xaxis.selectAll("line")
-    .style("stroke", "#f4eedf");
+    .style("stroke", axisWhite);
   
   xaxis.selectAll("path")
-    .style("stroke", "#f4eedf");
+    .style("stroke", axisWhite);
 
   // Add the y axis
   // First set the text format
@@ -335,13 +343,13 @@ d3.csv("breach_level_index.csv", function (error, data) {
   // Then style it
   yaxis.selectAll("text")
     .style("font", "14px futura-pt")
-    .style("stroke", "#f4eedf");
+    .style("stroke", axisWhite);
   
   yaxis.selectAll("line")
-    .style("stroke", "#f4eedf");
+    .style("stroke", axisWhite);
   
   yaxis.selectAll("path")
-    .style("stroke", "#f4eedf");
+    .style("stroke", axisWhite);
 
   // =====================================================
 
