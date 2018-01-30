@@ -133,11 +133,14 @@ a svg:hover .social {
 }
 
 #twitter {
-	padding: 0 10px 10px 0;
+	padding: 16px 10px 10px 0;
 }
 
+#facebook {
+  padding-top: 16px;
+}
 
-#mc_embed_signup form {text-align:center; padding:10px 0 10px 0;}
+#mc_embed_signup form {text-align:center; padding:20px 0 10px 0;}
 .mc-field-group { display: inline-block; } /* positions input field horizontally */
 #mc_embed_signup input.email {font-family:"futura-pt",sans-serif; font-size: 17px; border: 1px solid #f4eedf;  -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: #272924; background-color: #f4eedf; box-sizing:border-box; height:32px; padding: 0px 0.4em; display: inline-block; margin: 0; width:350px; vertical-align:top;}
 #mc_embed_signup label {display:block; font-size:16px; padding-bottom:10px; font-weight:bold;}
