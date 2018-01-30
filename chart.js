@@ -31,8 +31,8 @@ var startDate = parseTime("30/12/2016");
 var endDate = parseTime("31/12/2017");
 
 // Set colours
-var govCol = "#e85859",
-  govColHigh = "#f8957e",
+var govCol = "#c03a81",
+  govColHigh = "#e85859",
   othCol = "#6f9b94",
   othColHigh = "#8EC7BF",
   rectFill = "#353831",
