@@ -347,7 +347,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .style("stroke", axisWhite);
 
   xaxis.selectAll("path")
-    .style("stroke", axisWhite);
+    .style("stroke", "none");
 
   // Add the y axis
   // First set the text format
@@ -369,7 +369,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .style("stroke", axisWhite);
 
   yaxis.selectAll("path")
-    .style("stroke", axisWhite);
+    .style("stroke", "none");
 
   // =====================================================
 
