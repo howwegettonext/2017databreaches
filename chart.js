@@ -4,7 +4,7 @@
 
 // Set chart size
 var margin = {
-    top: 80,
+    top: 90,
     right: 15,
     bottom: 20,
     left: 35
@@ -315,7 +315,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .attr("id", "legend")
     .attr("transform",
       "translate(" + 0 + " ," +
-      ((margin.top / -2) + - 10) + ")")
+      ((margin.top / -2) - 15) + ")")
     .style("fill", govCol)
     .style("text-anchor", "left")
     .style("font", "18px futura-pt")
@@ -325,7 +325,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
     .attr("id", "legend")
     .attr("transform",
       "translate(" + 95 + " ," +
-      ((margin.top / -2) - 10) + ")")
+      ((margin.top / -2) - 15) + ")")
     .style("fill", othCol)
     .style("text-anchor", "left")
     .style("font", "18px futura-pt")
