@@ -58,7 +58,7 @@ var chart = chartContainer.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
-d3.csv("breach_level_index_new.csv", function (error, data) {
+d3.csv("breach_level_index.csv", function (error, data) {
 	if (error) throw error;
 
 	// Format the data
