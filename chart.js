@@ -204,7 +204,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 		d3.select("#tooltip").classed("hidden", true);
 	});
 
-	/*
+	/* This is all commented out because it wasn't working.
 	// Add touch effect
 	dots.on("touch", function (data) {
 	  // If a tooltip is displayed
@@ -331,6 +331,16 @@ d3.csv("breach_level_index.csv", function (error, data) {
 		.style("font", "18px futura-pt")
 		.text("other sectors");
 
+	var legTips = chart.append("text")
+		.attr("id", "advice")
+		.attr("transform",
+			"translate(" + (width - 130) + "," +
+			(margin.top - 70) + ")")
+		.style("fill", axisWhite)
+		.style("text-anchor", "right")
+		.style("font", "14px futura-pt")
+		.text("Tap or hover for more");
+
 	// Now define the axis
 	var xaxis = chart.append("g")
 		.call(d3.axisTop(x)
@@ -401,7 +411,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 				return y(d.date);
 			});
 
-		// Move the squares
+		// Move the squares and tip text
 		rects.attr("y", function (d) {
 				return y(d[0]);
 			})
@@ -409,6 +419,10 @@ d3.csv("breach_level_index.csv", function (error, data) {
 			.attr("height", function (d) {
 				return y(d[1]) - y(d[0]);
 			});
+
+		legTips.attr("transform",
+			"translate(" + (width - 190) + "," +
+			(margin.top - 70) + ")");
 
 		// Move the axes
 		xaxis.call(d3.axisTop(x)
