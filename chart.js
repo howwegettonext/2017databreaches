@@ -421,7 +421,7 @@ d3.csv("breach_level_index.csv", function (error, data) {
 			});
 
 		legTips.attr("transform",
-			"translate(" + (width - 190) + "," +
+			"translate(" + (width - 130) + "," +
 			(margin.top - 70) + ")");
 
 		// Move the axes
