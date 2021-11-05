@@ -8,6 +8,8 @@
   <meta http - equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://use.typekit.net/auw8bny.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 
 <body id="thebody">
@@ -17,12 +19,17 @@
         <div id="header">
           <a href="https://howwegettonext.com/"><img src="images/next.png" class="button" id="nextlogo" alt="How We Get to Next Home"></a>
           <nav>
-              <ul>
-                  <li><a href="https://howwegettonext.com/archive/">THEMES</a></li>
+            <ul>
+                  <li><a href="https://howwegettonext.com/themes/">THEMES</a></li>
                   <li><a href="https://howwegettonext.com/series/">SERIES</a></li>
                   <li><a href="https://howwegettonext.com/beats/">BEATS</a></li>
                   <li><a href="https://interactive.howwegettonext.com">INTERACTIVES</a></li>
-                  <li><a href="https://howwegettonext.com/we-wont-get-to-next/">ABOUT</a></li>
+                  <li class="has-submenu">
+                    <a href="https://howwegettonext.com/about-how-we-get-to-next/">ABOUT</a>
+                    <div class="submenu">
+                      <a href="https://howwegettonext.com/you-can-republish-our-content/" class="submenu-item">You Can Republish Our Content</a>
+                    </div>
+                  </li>
               </ul>
           </nav>
         </div>
@@ -30,7 +37,7 @@
       <p>Commercial firms often hit the headlines for security breaches, but governments lose data just as often. In the chart below, we&#8217;ve plotted the hundred largest data breaches of 2017 in terms of the number of records leaked. They&#8217;re sorted by month, with larger circles showing bigger breaches. Governmental leaks are in pink, and other sectors are shown in green.</p>
 
       <p>The largest breach of 2017 was from a commercial firm: in March, a faulty backup at spam giant River City Media <a href="https://mackeeper.com/blog/post/339-spammergate-the-fall-of-an-empire">exposed the email addresses of an astonishing 1.4 billion people</a>. But the second and third largest breaches were both from governments. In May, the Motor Vehicles Department in Kerala, India, <a href="http://english.mathrubhumi.com/news/kerala/mvd-database-compromised-vehicle-regn-details-leaked-1.1908611">leaked the registration details of 20 million vehicle owners</a>, and in June, a data analytics firm that helped Donald Trump&#8217;s 2016 election campaign <a href="http://www.dw.com/en/deep-root-analytics-behind-data-breach-on-198-million-us-voters-security-firm/a-39318788">exposed personal information on 198 million Americans</a>.</p>
-      <p>You can see the rest of the data below, and you can hover over each circle to find out what happened. To read about digital data breaches and the individuals who fall through the cracks of identity systems, be sure to check out <a href="https://howwegettonext.com/the-id-question-6fb3b56052b5">the piece that accompanies this chart</a>. Plus, if you want to talk about digital identity in more detail, be sure to join our <a href="https://www.facebook.com/groups/idquestion/">ID Question Facebook group</a>.</p>
+      <p>You can see the rest of the data below, and you can hover over each circle to find out what happened. To read about digital data breaches and the individuals who fall through the cracks of identity systems, be sure to check out <a href="https://howwegettonext.com/the-id-question">the piece that accompanies this chart</a>. Plus, if you want to talk about digital identity in more detail, be sure to join our <a href="https://www.facebook.com/groups/idquestion/">ID Question Facebook group</a>.</p>
       <div id="chartgoeshere">
         <div id="tooltip" class="hidden">
           <p><strong><span id = "tip-header">Header</span></strong></p>
@@ -39,11 +46,11 @@
         </div>
       </div>
       <div id="outro">
-        <p>This bubble chart was created in <a href="https://d3js.org/">D3v4.js</a> by <a href="http://duncangeere.com">Duncan Geere</a> and <a href="http://edenbrack.com/">Eden Brackenbury</a> for <a href="https://howwegettonext.com/the-id-question-6fb3b56052b5">the ID Question</a>.</p>
+        <p>This bubble chart was created in <a href="https://d3js.org/">D3v4.js</a> by <a href="http://duncangeere.com">Duncan Geere</a> and <a href="http://edenbrack.com/">Eden Brackenbury</a> for <a href="https://howwegettonext.com/the-id-question">the ID Question</a>.</p>
         <p id="credits">Data from <a href="http://breachlevelindex.com/data-breach-database">Breach Level Index</a>. Find the source code on <a href="https://github.com/Storythings/2017databreaches">Github</a>.</p>
       </div>
       <div id="seriesintro">
-        <a href="https://howwegettonext.com/the-id-question-6fb3b56052b5"><img src="images/idquestion.png" alt="ID Question Hub" id="serieslogo"></a>
+        <a href="https://howwegettonext.com/the-id-question><img src="images/idquestion.png" alt="ID Question Hub" id="serieslogo"></a>
         <p>The ID Question is a <a href="https://howwegettonext.com/">How We Get To Next</a> production.</p>
         <p>How We Get To Next was a magazine that explored the future of science, technology, and culture from 2014 to 2019. Our interactives explored everything from neglected tropical diseases to government data breaches.</p>
       </div>
@@ -52,6 +59,12 @@
       </div>
 
       <script src="chart.js"></script>
+      <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+      <script src="script/index-scripts.js"></script>
+
 
     </div>
   </main>
